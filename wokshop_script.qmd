@@ -1,0 +1,94 @@
+---
+title: "Data Workshop"
+author: "Marina Kochuten"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+# Writing Markdown Text
+
+# Level 1 header
+
+## Level 2 header
+
+### level 3
+
+#### level 4
+
+**Bold text**
+
+*Italic*
+
+I can 
+
+- Make
+- A
+- List
+
+I can also link [super cool websites](https://restorationfund.org)
+
+**To write code**
+
+```{r}
+2 + 2
+```
+
+
+```{r}
+#| code-fold: true
+
+# This code will only show up if you click on a dropdown to open it
+2 + 2
+```
+
+```{r}
+#| echo: false
+
+# Your code will not show at all, only the output
+2 + 2
+```
+
+```{r}
+#| include: false
+
+# This code will run, but neither the code nor the output will render
+2 + 2
+```
+
+# Penguins Analysis
+
+## About
+
+Purpose of this script
+
+something about the data
+
+
+## Setup
+
+```{r}
+# Load libraries ----
+library(tidyverse)
+library(here)
+library(janitor)
+library(lubridate) # for date times
+library(gghighlight)
+library(sysfonts)
+library(showtext)
+
+# Read in data ----
+penguins_raw <- read_csv(here("data", "raw", "messy_penguins.csv"))
+nesting_raw <- read_csv(here("data", "raw", "nesting.csv"))
+```
+
+
+
+
+
+
+
+
+
+
+
