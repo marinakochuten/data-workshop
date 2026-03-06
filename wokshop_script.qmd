@@ -208,6 +208,84 @@ write_csv(penguins_clean, here("data", "processed", "penguins.csv"))
 ```
 
 
+## Visualization
+
+```{r}
+# Simple bar chart
+pen_bar <- ggplot(penguins_clean |>
+         mutate(species = fct_rev(fct_infreq(species)))) +
+  geom_bar(aes(x = species)) +
+  geom_text(aes(x = species, label = after_stat(count)),
+            stat = "count",
+            hjust = 1.5,
+            color = "white",
+            size = 5) +
+  labs(title = "Penguin counts at Palmer Station LTER",
+       subtitle = "2007 - 2009",
+       caption = "Data: Gorman et al. 2014 via {palmerpenguins}") +
+  coord_flip() +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.title = element_blank(),
+    axis.text.x = element_blank(),
+    panel.grid = element_blank(),
+    plot.caption = element_text(face = "italic",
+                                color = "grey50",
+                                size = rel(0.7)),
+    plot.title.position = "plot",
+    plot.title = element_text(face = "bold"),
+    plot.margin = margin(20, 20, 20, 20)
+  )
+```
+
+```{r}
+# Save beautiful penguins bar chart
+# ggsave(here("figs", "pen_bar.png"),
+#        pen_bar, width = 6, height = 4)
+```
+
+```{r}
+# Penguin size scatterplot
+pen_size_annot <- ggplot(data = penguins_clean,
+       aes(x = bill_length_mm,
+                 y = bill_depth_mm,
+                 color = species)) +
+  geom_point(aes(shape = species),
+             size = 3,
+             alpha = 0.8) +
+  geomtextpath::geom_labelsmooth(aes(label = species),
+                                 method = "lm",
+                                 size = 5,
+                                 linewidth = 1) +
+  # geom_smooth(method = "lm", se = FALSE) +
+  scale_color_manual(values = c("darkorange", 
+                                "purple",
+                                "cyan4")) +
+  labs(title = "Penguin bill dimensions",
+       subtitle = "Bill length and depth for Adelie, Chinstrap, and Gentoo penguins at Palmer Station LTER",
+       x = "Bill length (mm)",
+       y = "Bill depth (mm)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title.position = "plot",
+    plot.margin = margin(10, 10, 10, 10),
+    axis.title.x = element_text(margin = 
+                                  margin(15, 0, 0, 0)),
+    axis.title.y = element_text(margin = 
+                                 margin(0,15, 0, 0)), 
+    plot.title = element_text(face = "bold"),
+    legend.position = "none"
+  )
+
+```
+
+```{r}
+# Save ----
+ggsave(here("figs", "pen_size_annot.png"),
+       pen_size_annot, width = 12, height = 8)
+```
 
 
 
